@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
  
   <style>
       .snake{
@@ -70,9 +71,9 @@
 
 <div class="col-md-3">
     <div class="container"><br>
-        <h3>You are at: <span id="coinloc"></span></h3><hr>
+        <h3> <span id="coinloc"></span></h3><hr>
         <p></p><hr> 
-        <button type="button" class="btn btn-primary btn-lg" onclick="diceRoll()" id="won">Roll Dice</button>  <p id="ambarish">You got: <span id="dice"></span></p>
+        <button type="button" class="btn btn-primary btn-lg" onclick="diceRoll()" id="won"><i class='fas fa-dice'></i></button>  <p id="ambarish">You got: <span id="dice"></span></p>
         <button type="button" class="btn btn-success btn-lg" onclick="window.location.reload()" id="restart" style="display:none;">New Game</button> 
     </div>
 </div>
@@ -119,7 +120,7 @@ function coinLocation()
         store = store + rolldice;
         rollback();
     if(store!=100){
-    document.getElementById("coinloc").innerHTML=store;
+    document.getElementById("coinloc").innerHTML="You are at:" +store;
     }
     else{
         document.getElementById("coinloc").innerHTML="HURREY! YOU WON";
