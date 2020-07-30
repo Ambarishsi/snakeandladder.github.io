@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>snake and ladder</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+ 
+  <style>
+      .snake{
+        background-color:#F5B7B1;
+        color:red;
+      }
+      .ladder{
+        background-color:#A3E4D7;
+      }
+  </style>
+</head> 
+<body>
+
+<div class="row">
+  <div class="col-md-3"></div>
+  
+<div class="col-md-6">
+    <br>
+<div class="container">
+        <center><h1>Snake & Ladder</h1></center> 
+        <h3 style="color:#F5B7B1;">snake</h3>  
+        <h3 style="color:green">ladder</h3> 
+  <table class=" table table-bordered" >
+    
+    <tbody>
+      <tr>
+        <td>100</td><td>99</td><td>98</td><td>97</td><td>96</td><td>95</td><td>94</td><td>93</td><td>92</td><td>91</td>
+      </tr>
+      <tr>
+        <td>81</td><td>82</td><td>83</td><td>84</td><td>85</td><td>86</td><td>87</td><td>88</td><td>89</td><td>90</td>
+      </tr>
+      <tr>
+        <td>80</td><td>79</td><td class="ladder">78</td><td>77</td><td>76</td><td>75</td><td>74</td><td>73</td><td>72</td><td>71</td>
+      </tr>
+      <tr>
+        <td>61</td><td>62</td><td class="ladder">63</td><td>64</td><td>65</td><td>66</td><td>67</td><td>68</td><td>69</td><td>70</td>
+      </tr>
+      <tr>
+        <td>60</td><td>59</td><td class="ladder">58</td><td>57</td><td>56</td><td>55</td><td>54</td><td>53</td><td>52</td><td>51</td>
+      </tr>
+      <tr>
+        <td>41</td><td>42</td><td>43</td><td class="ladder">44</td><td >45</td><td>46</td><td>47</td><td>48</td><td  class="snake">49</td><td  class="snake">50</td>
+      </tr>
+      <tr>
+        <td>40</td><td>39</td><td>38</td><td>37</td><td  class="ladder">36</td><td>35</td><td>34</td><td  class="snake">33</td><td>32</td><td>31</td>
+      </tr>
+      <tr>
+        <td>21</td><td  class="snake">22</td><td>23</td><td>24</td><td>25</td><td>26</td><td  class="snake">27</td><td>28</td><td>29</td><td>30</td>
+      </tr>
+      <tr>
+        <td>20</td><td>19</td><td  class="snake">18</td><td>17</td><td>16</td><td  class="snake">15</td><td>14</td><td>13</td><td>12</td><td>11</td>
+      </tr>
+      <tr>
+        <td>1</td><td class="snake">2</td><td>3</td><td>4</td><td  class="snake">5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="col-md-3">
+    <div class="container"><br>
+        <h3>You are at: <span id="coinloc"></span></h3><hr>
+        <p></p><hr> 
+        <button type="button" class="btn btn-primary btn-lg" onclick="diceRoll()" id="won">Roll Dice</button>  <p id="ambarish">You got: <span id="dice"></span></p>
+        <button type="button" class="btn btn-success btn-lg" onclick="window.location.reload()" id="restart" style="display:none;">New Game</button> 
+    </div>
+</div>
+
+</div>
+<footer>
+    <center>
+      <p style="color: #a569bd;">&#xA9; Ambarish Parthasarthy</p>
+    </center>
+  </footer>
+<script>
+ var ground = generateTile(10, 10);
+ var store=0;
+ var rolldice=0;
+
+function generateTile(height, width) {
+var n=1;
+  var ground = [];
+  for (var y = 0; y < height; y++) {
+    ground[y] = [];
+    for (var x = 0; x < width; x++) {
+      ground[y][x] = n;
+      n++; 
+    }
+  }
+  return ground;
+}
+console.log(ground);
+
+function diceRoll()
+{
+    rolldice= Math.floor(Math.random() * 6)+1;
+    
+    document.getElementById("dice").innerHTML=rolldice;
+    coinLocation();
+}
+
+
+function coinLocation()
+{   
+    
+    
+    if(store<100){
+        store = store + rolldice;
+        rollback();
+    if(store!=100){
+    document.getElementById("coinloc").innerHTML=store;
+    }
+    else{
+        document.getElementById("coinloc").innerHTML="HURREY! YOU WON";
+        document.getElementById("won").style.display = "none";
+        document.getElementById("restart").style.display = "block";
+        document.getElementById("restart").style.visibility = "visible";
+        document.getElementById("ambarish").style.visibility = "hidden";
+        document.body.style.backgroundImage = "url('images/victory.gif')";
+    }
+    snakeLogic();
+    ladder();
+    }
+    else{
+
+        document.getElementById("coinloc").innerHTML="Try Again";
+    }
+}
+
+function snakeLogic()
+{
+    if(store==22)
+    {
+        store = store - 20;
+    }
+    else if(score==50)
+    {
+        store = store - 45;
+    }
+    else{
+        document.getElementById("coinloc").innerHTML=store;
+    }
+}
+
+function ladder()
+{
+    if(store==36)
+    {
+        store = store + 42;
+    }
+    else{
+        document.getElementById("coinloc").innerHTML=store;
+    }
+}
+
+function rollback()
+{
+    if (store>100)
+    {
+        store=store-rolldice;
+    }
+}
+
+</script>
+
+
+</body>
+</html>
