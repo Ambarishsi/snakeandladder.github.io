@@ -75,6 +75,7 @@
         <p></p><hr> 
         <button type="button" class="btn btn-primary btn-lg" onclick="diceRoll()" id="won"><i class='fas fa-dice'></i></button>  <p id="ambarish">You got: <span id="dice"></span></p>
         <button type="button" class="btn btn-success btn-lg" onclick="window.location.reload()" id="restart" style="display:none;">New Game</button> 
+        <h3 id="totalroll"></h3>
     </div>
 </div>
 
@@ -88,6 +89,7 @@
  var ground = generateTile(10, 10);
  var store=0;
  var rolldice=0;
+ var totalroll=0;
 
 function generateTile(height, width) {
 var n=1;
@@ -106,7 +108,7 @@ console.log(ground);
 function diceRoll()
 {
     rolldice= Math.floor(Math.random() * 6)+1;
-    
+    totalroll++;
     document.getElementById("dice").innerHTML=rolldice;
     coinLocation();
 }
@@ -129,6 +131,7 @@ function coinLocation()
         document.getElementById("restart").style.visibility = "visible";
         document.getElementById("ambarish").style.visibility = "hidden";
         document.body.style.backgroundImage = "url('images/victory.gif')";
+        document.getElementById("totalroll").innerHTML = "You Rolled " + totalroll + " times";
     }
     snakeLogic();
     ladder();
