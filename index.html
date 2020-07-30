@@ -143,6 +143,10 @@ function coinLocation()
     
     }
     else{
+        console.log(prev)
+        prev = store - rolldice;
+        document.getElementById(prev).innerHTML = prev;
+        document.getElementById(store).innerHTML ='<i class="myfloat"></i>';
         document.getElementById("coinloc").innerHTML="HURREY! YOU WON";
         document.getElementById("won").style.display = "none";
         document.getElementById("restart").style.display = "block";
