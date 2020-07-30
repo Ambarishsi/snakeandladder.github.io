@@ -18,6 +18,17 @@
       .ladder{
         background-color:#A3E4D7;
       }
+      .myfloat{
+	position:fixed;
+	width:25px;
+	height:25px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+ 
+}
   </style>
 </head> 
 <body>
@@ -35,34 +46,34 @@
     
     <tbody>
       <tr>
-        <td>100</td><td>99</td><td>98</td><td>97</td><td>96</td><td>95</td><td>94</td><td>93</td><td>92</td><td>91</td>
+        <td id="100">100</td><td id="99">99</td><td id="98">98</td><td id="97">97</td><td id="96">96</td><td id="95">95</td><td id="94">94</td><td id="93">93</td><td id="92">92</td><td id="91">91</td>
       </tr>
       <tr>
-        <td>81</td><td>82</td><td>83</td><td>84</td><td>85</td><td>86</td><td>87</td><td>88</td><td>89</td><td>90</td>
+        <td id="81">81</td><td id="82">82</td><td id="83">83</td><td id="84">84</td><td id="85">85</td><td id="86">86</td><td id="87">87</td><td id="88">88</td><td id="89">89</td><td id="90">90</td>
       </tr>
       <tr>
-        <td>80</td><td>79</td><td class="ladder">78</td><td>77</td><td>76</td><td>75</td><td>74</td><td>73</td><td>72</td><td>71</td>
+        <td id="80">80</td><td id="79">79</td><td class="ladder" id="78">78</td><td id="77">77</td><td id="76">76</td><td id="75">75</td><td id="74">74</td><td id="73">73</td><td id="72">72</td><td id="71">71</td>
       </tr>
       <tr>
-        <td>61</td><td>62</td><td class="ladder">63</td><td>64</td><td>65</td><td>66</td><td>67</td><td>68</td><td>69</td><td>70</td>
+        <td id="61">61</td><td id="62">62</td><td class="ladder" id="63">63</td><td id="64">64</td><td id="65">65</td><td id="66">66</td><td id="67">67</td><td id="68">68</td><td id="69">69</td><td id="70">70</td>
       </tr>
       <tr>
-        <td>60</td><td>59</td><td class="ladder">58</td><td>57</td><td>56</td><td>55</td><td>54</td><td>53</td><td>52</td><td>51</td>
+        <td id="60">60</td><td id="59">59</td><td class="ladder" id="58">58</td><td id="57">57</td><td id="56">56</td><td id="55">55</td><td id="54">54</td><td id="53">53</td><td id="52">52</td><td id="50">51</td>
       </tr>
       <tr>
-        <td>41</td><td>42</td><td>43</td><td class="ladder">44</td><td >45</td><td>46</td><td>47</td><td>48</td><td  class="snake">49</td><td  class="snake">50</td>
+        <td id="41">41</td><td id="42">42</td><td id="43">43</td><td class="ladder" id="44">44</td><td id="45">45</td><td id="46">46</td><td id="47">47</td><td id="48">48</td><td  class="snake" id="49">49</td><td  class="snake" id="50">50</td>
       </tr>
       <tr>
-        <td>40</td><td>39</td><td>38</td><td>37</td><td  class="ladder">36</td><td>35</td><td>34</td><td  class="snake">33</td><td>32</td><td>31</td>
+        <td id="40">40</td><td id="39">39</td><td id="38">38</td><td id="37">37</td><td  class="ladder" id="36">36</td><td id="35">35</td><td id="34">34</td><td  class="snake" id="33">33</td><td id="32">32</td><td id="31">31</td>
       </tr>
       <tr>
-        <td>21</td><td  class="snake">22</td><td>23</td><td>24</td><td>25</td><td>26</td><td  class="snake">27</td><td>28</td><td>29</td><td>30</td>
+        <td id="21">21</td><td  class="snake" id="22">22</td><td id="23">23</td><td id="24">24</td><td id="25">25</td><td id="26">26</td><td  class="snake" id="27">27</td><td id="28">28</td><td id="29">29</td><td id="30">30</td>
       </tr>
       <tr>
-        <td>20</td><td>19</td><td  class="snake">18</td><td>17</td><td>16</td><td  class="snake">15</td><td>14</td><td>13</td><td>12</td><td>11</td>
+        <td id="20">20</td><td id="19">19</td><td  class="snake" id="18">18</td><td id="17">17</td><td id="16">16</td><td  class="snake" id="15">15</td><td id="14">14</td><td id="13">13</td><td id="12">12</td><td id="11">11</td>
       </tr>
       <tr>
-        <td>1</td><td class="snake">2</td><td>3</td><td>4</td><td  class="snake">5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td>
+        <td id="1">1</td><td class="snake" id="2">2</td><td id="3">3</td><td id="4">4</td><td  class="snake" id="5">5</td><td id="6">6</td><td id="7">7</td><td id="8">8</td><td id="9">9</td><td id="10">10</td>
       </tr>
     </tbody>
   </table>
@@ -73,7 +84,7 @@
     <div class="container"><br>
         <h3> <span id="coinloc"></span></h3><hr>
         <p></p><hr> 
-        <button type="button" class="btn btn-primary btn-lg" onclick="diceRoll()" id="won"><i class='fas fa-dice'></i></button>  <p id="ambarish">You got: <span id="dice"></span></p>
+        <button type="button" class="btn btn-primary btn-lg" onclick="diceRoll(), hidecoin()" id="won"><i class='fas fa-dice'></i></button>  <p id="ambarish">You got: <span id="dice"></span></p>
         <button type="button" class="btn btn-success btn-lg" onclick="window.location.reload()" id="restart" style="display:none;">New Game</button> 
         <h3 id="totalroll"></h3>
     </div>
@@ -90,6 +101,7 @@
  var store=0;
  var rolldice=0;
  var totalroll=0;
+ var prev;
 
 function generateTile(height, width) {
 var n=1;
@@ -102,8 +114,9 @@ var n=1;
     }
   }
   return ground;
+  
 }
-console.log(ground);
+//console.log(ground);
 
 function diceRoll()
 {
@@ -123,6 +136,11 @@ function coinLocation()
         rollback();
     if(store!=100){
     document.getElementById("coinloc").innerHTML="You are at:" +store;
+    prev = store - rolldice;
+    document.getElementById(prev).innerHTML = prev;
+    document.getElementById(store).innerHTML ='<i class="myfloat"></i>';
+
+    
     }
     else{
         document.getElementById("coinloc").innerHTML="HURREY! YOU WON";
@@ -153,7 +171,7 @@ function snakeLogic()
         store = store - 45;
     }
     else{
-        document.getElementById("coinloc").innerHTML=store;
+        document.getElementById("coinloc").innerHTML="You are at:" +store;
     }
 }
 
@@ -164,7 +182,7 @@ function ladder()
         store = store + 42;
     }
     else{
-        document.getElementById("coinloc").innerHTML=store;
+        document.getElementById("coinloc").innerHTML="You are at:" +store;
     }
 }
 
