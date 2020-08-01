@@ -8,7 +8,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ 
+
  
   <style>
       .snake{
@@ -29,19 +32,33 @@
 	box-shadow: 2px 2px 3px #999;
  
 }
+
+.myfloatmechine{
+	position:fixed;
+	width:25px;
+	height:25px;
+	background-color:royalblue;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+ 
+}
+
+
   </style>
 </head> 
 <body>
 
 <div class="row">
-  <div class="col-md-3"></div>
+  <div class="col-md-2"></div>
   
 <div class="col-md-6">
     <br>
-<div class="container">
-        <center><h1>Snake & Ladder</h1></center> 
-        <h3 style="color:#F5B7B1;">snake</h3>  
-        <h3 style="color:green">ladder</h3> 
+<div class="container-fluid">
+        <center><h1 id="whoseturn">Snake & Ladder</h1></center> 
+        <div style="display: inline-block;font-size: 16px;"><span class="badge" style="color:red;background-color: #F5B7B1;">snake</span>
+          <span class="badge" style="color:green;background-color: #A3E4D7;">ladder</span></div> 
   <table class=" table table-bordered" >
     
     <tbody>
@@ -83,8 +100,17 @@
 <div class="col-md-3">
     <div class="container"><br>
         <h3> <span id="coinloc"></span></h3><hr>
-        <p></p><hr> 
-        <button type="button" class="btn btn-primary btn-lg" onclick="diceRoll(), hidecoin()" id="won"><i class='fas fa-dice'></i></button>  <p id="ambarish">You got: <span id="dice"></span></p>
+        <h3> <span id="coinlocmechine"></span></h3><hr>
+        <p></p>
+
+        <!--dice code-->
+      
+        <audio preload="auto">
+          <source src="sound/diceroll.mp3"></source>
+        </audio>
+        <!--//dice code-->
+        <span id ="audio"><i class="fa fa-volume-up" aria-hidden="true" style='font-size:48px;color:red;cursor:pointer;' onclick="muteaudio()"></i></span>
+        &nbsp;<button type="button" class="btn btn-primary btn-lg" onclick="diceRoll();" id="won">6</button> 
         <button type="button" class="btn btn-success btn-lg" onclick="window.location.reload()" id="restart" style="display:none;">New Game</button> 
         <h3 id="totalroll"></h3>
     </div>
@@ -97,33 +123,47 @@
     </center>
   </footer>
 <script>
- var ground = generateTile(10, 10);
  var store=0;
  var rolldice=0;
  var totalroll=0;
  var prev;
+ var mute=0;
+ var turn=0;
+ var rolldicemechine=0;
+ var storemechine=0;
+ var prevmechine;
+ var collider;
 
-function generateTile(height, width) {
-var n=1;
-  var ground = [];
-  for (var y = 0; y < height; y++) {
-    ground[y] = [];
-    for (var x = 0; x < width; x++) {
-      ground[y][x] = n;
-      n++; 
-    }
-  }
-  return ground;
-  
-}
-//console.log(ground);
+ /*var count=0;
+
+if(count == 0){
+  document.getElementById("1").innerHTML ='<i class="myfloat"></i>';
+  document.getElementById("1").innerHTML ='<i class="myfloatmechine"></i>';
+}*/
 
 function diceRoll()
-{
+{   /*count=1;
+    if(count == 1){
+      document.getElementById("1").innerHTML =1;
+    }*/
+    if(turn == 0){
+    document.getElementById("won").style.backgroundColor ="royalblue";
+    document.getElementById("won").disabled = true;
+    turn=1;
+    setTimeout(mechineTurn, 1200);
+  }
+    
+    document.getElementById("whoseturn").innerHTML="You are playing"; 
     rolldice= Math.floor(Math.random() * 6)+1;
-    totalroll++;
-    document.getElementById("dice").innerHTML=rolldice;
+    //totalroll++;
+    
+    if(mute == 0){
+    soundEffect();
+    }
+
+    document.getElementById("won").innerHTML=rolldice;
     coinLocation();
+
 }
 
 
@@ -132,47 +172,52 @@ function coinLocation()
     
     
     if(store<100){
-        store = store + rolldice;
-        rollback();
+      store = store + rolldice;
     if(store!=100){
     document.getElementById("coinloc").innerHTML="You are at:" +store;
     prev = store - rolldice;
-    document.getElementById(prev).innerHTML = prev;
-    document.getElementById(store).innerHTML ='<i class="myfloat"></i>';
 
-    
+    document.getElementById(store).innerHTML ='<i class="myfloat"></i>';
+    document.getElementById(prev).innerHTML = prev;
+
+
     }
     else{
-        console.log(prev)
+       // console.log(prev)
         prev = store - rolldice;
-        document.getElementById(prev).innerHTML = prev;
         document.getElementById(store).innerHTML ='<i class="myfloat"></i>';
+        document.getElementById(prev).innerHTML = prev;
         document.getElementById("coinloc").innerHTML="HURREY! YOU WON";
         document.getElementById("won").style.display = "none";
         document.getElementById("restart").style.display = "block";
         document.getElementById("restart").style.visibility = "visible";
-        document.getElementById("ambarish").style.visibility = "hidden";
+       // document.getElementById("ambarish").style.visibility = "hidden";
         document.body.style.backgroundImage = "url('images/victory.gif')";
         document.getElementById("totalroll").innerHTML = "You Rolled " + totalroll + " times";
     }
     snakeLogic();
     ladder();
     }
-    else{
 
+    else{
         document.getElementById("coinloc").innerHTML="Try Again";
+        rollback();
     }
 }
 
 function snakeLogic()
 {
     if(store==22)
-    {
+    {   
+        document.getElementById(store).innerHTML = "22";
         store = store - 20;
+        document.getElementById(store).innerHTML ='<i class="myfloat"></i>';
     }
-    else if(score==50)
-    {
+    else if(store==50)
+    {   
+        document.getElementById(store).innerHTML = "50";
         store = store - 45;
+        document.getElementById(store).innerHTML ='<i class="myfloat"></i>';
     }
     else{
         document.getElementById("coinloc").innerHTML="You are at:" +store;
@@ -182,8 +227,10 @@ function snakeLogic()
 function ladder()
 {
     if(store==36)
-    {
+    {   
+        document.getElementById(store).innerHTML = "36";
         store = store + 42;
+        document.getElementById(store).innerHTML ='<i class="myfloat"></i>';
     }
     else{
         document.getElementById("coinloc").innerHTML="You are at:" +store;
@@ -195,6 +242,125 @@ function rollback()
     if (store>100)
     {
         store=store-rolldice;
+    }
+}
+function muteaudio()
+{ 
+  if(mute == 0){
+    mute=1;
+ document.getElementById('audio').innerHTML = "<i class='fa fa-volume-off aria-hidden='true' style='font-size:48px;color:red;cursor:pointer' onclick='muteaudio()'></i>";
+
+  }
+  else{
+    mute=0;
+  document.getElementById('audio').innerHTML = "<i class='fa fa-volume-up' aria-hidden='true' style='font-size:48px;color:red;cursor:pointer' onclick='muteaudio()'></i>";
+ 
+  }
+}
+
+function soundEffect() {
+		var audio = $("audio")[0];
+		audio.pause();
+		audio.currentTime = 0;
+		audio.play();
+	}
+
+
+//mechine script starts here
+
+
+function mechineTurn()
+{
+    document.getElementById("whoseturn").innerHTML="Computer is playing"; 
+    document.getElementById("won").style.backgroundColor ="#0C9";
+    turn=0;
+    document.getElementById("won").disabled = false;
+    rolldicemechine= Math.floor(Math.random() * (6 - 1 + 1) ) + 1;
+    document.getElementById("won").innerHTML=rolldicemechine;
+    if(mute == 0){
+    soundEffect();
+    }
+    document.getElementById("coinlocmechine").innerHTML="Mechine at:" +rolldicemechine;
+    //document.getElementById("won").innerHTML=rolldice;
+    MechineCoinLocation();
+    
+}
+
+function MechineCoinLocation(){
+  if(storemechine<100){
+    storemechine = storemechine + rolldicemechine;
+    if(storemechine!=100){
+    document.getElementById("coinlocmechine").innerHTML="Mechine at:" + storemechine;
+    prevmechine = storemechine - rolldicemechine;
+    
+    document.getElementById(storemechine).innerHTML ='<i class="myfloatmechine"></i>';
+    document.getElementById(prevmechine).innerHTML = prevmechine;
+    
+    
+    }
+    else{
+        //console.log(prevmechine)
+        prevmechine = storemechine - rolldicemechine;
+        document.getElementById(prevmechine).innerHTML = prevmechine;
+        document.getElementById(store).innerHTML ='<i class="myfloatmechine"></i>';
+        
+        document.getElementById("coinloc").innerHTML="You Loose";
+        document.getElementById("won").style.display = "none";
+        document.getElementById("restart").style.display = "block";
+        document.getElementById("restart").style.visibility = "visible";
+       // document.getElementById("ambarish").style.visibility = "hidden";
+        document.body.style.backgroundImage = "url('images/victory.gif')";
+       // document.getElementById("totalroll").innerHTML = "You Rolled " + totalroll + " times";
+    }
+    snakeLogicMechine();
+    ladderMechine();
+ 
+    }
+
+    else{
+
+        document.getElementById("coinlocmechine").innerHTML="Try Again";
+        rollbackMechine();
+    }
+}
+
+function rollbackMechine(){
+  if (storemechine>100)
+    {
+      storemechine=storemechine-rolldicemechine;
+    }
+}
+
+function snakeLogicMechine()
+{
+    if(storemechine==22)
+    {
+      document.getElementById(storemechine).innerHTML = "22";
+      storemechine = storemechine - 20;
+      document.getElementById(storemechine).innerHTML ='<i class="myfloatmechine"></i>';
+    }
+    else if(storemechine==50)
+    {
+      document.getElementById(storemechine).innerHTML = "50";
+      storemechine = storemechine - 45;
+      document.getElementById(storemechine).innerHTML ='<i class="myfloatmechine"></i>';
+    }
+    else{
+        document.getElementById("coinlocmechine").innerHTML="Mechine at:" +storemechine;
+    }
+}
+
+function ladderMechine()
+{
+    if(storemechine==36)
+    {
+        document.getElementById(storemechine).innerHTML = "36";
+        storemechine = storemechine + 42;
+        document.getElementById(storemechine).innerHTML ='<i class="myfloatmechine"></i>';
+        document.getElementById("coinlocmechine").innerHTML="Mechine at:" +storemechine;
+    }
+    else{
+        document.getElementById("coinlocmechine").innerHTML="Mechine at:" +storemechine;
     }
 }
 
